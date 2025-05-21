@@ -8,7 +8,8 @@ import { ProductsLoading } from './ProductsLoading';
 
 import { useCartStore } from '@/stores/cartStore';
 import { getAllProducts } from '@/app/(main)/page';
-import { Button, Card, CardBody, CardFooter, Image, Link } from '@heroui/react';
+import { Button, Card, CardBody, CardFooter, Link } from '@heroui/react';
+import Image from 'next/image'
 
 
 function Products() {
@@ -23,7 +24,7 @@ function Products() {
   console.log(isLoading);
 
   if (isLoading) return <ProductsLoading />;
-  if (!data) return undefined;
+  if (!data) return <p className="text-center text-red-500">Products not found.</p>;
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -39,14 +40,15 @@ function Products() {
         >
           <CardBody className="overflow-visible p-0 flex-none">
             <Image
-              isZoomed
               alt={product.title}
               className="w-full object-contain h-[180px]"
-              radius="lg"
-              shadow="sm"
+              width={500}
+              height={500}
               src={product.image}
-              width="100%"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              loading='lazy'
             />
+
           </CardBody>
           <div className="flex flex-row">
             <CardFooter className="text-small justify-start items-start text-left flex flex-col">

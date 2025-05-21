@@ -6,42 +6,37 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-  Image,
 } from '@heroui/react';
 import { useQuery } from '@tanstack/react-query';
 
-import { SingleProductLoading } from './SingleProductLoading';
-
-// import { getProducts } from '@/app/api/getProducts';
 import { Product } from '@/types/product';
 import { useCartStore } from '@/stores/cartStore';
+import Image from 'next/image';
+import { SingleProductLoading } from './SingleProductLoading';
+import { getSingleProduct } from '@/app/(main)/products/[id]/page';
 
-interface Props {
-  product: Product;
-  routeId: string;
-}
-
-function SingleProduct({ product, routeId }: Props) {
+function SingleProduct({ id }: { id: string }) {
   const addItem = useCartStore((state) => state.addItem);
+
   const { data, isLoading } = useQuery({
-    queryKey: ['products', routeId],
-    queryFn: () => getProducts.getSingleProduct(routeId),
-    initialData: product,
+    queryKey: ['product', id],
+    queryFn: () => getSingleProduct(id),
   });
 
   if (isLoading) return <SingleProductLoading />;
-  if (!data) return undefined;
+  if (!data) return <p className="text-center text-red-500">Product not found.</p>;
 
   return (
     <Card className="w-full max-w-5xl mx-auto p-6">
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="flex-1 flex justify-center items-center bg-default-100 rounded-lg p-4">
           <Image
-            isZoomed
             alt={data.title}
-            src={data.image}
             className="object-contain max-h-[400px] w-full"
-            radius="lg"
+            width={500}
+            height={500}
+            src={data.image}
+          // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
 

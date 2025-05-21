@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Button, Form, Input, Link } from '@heroui/react';
@@ -32,6 +31,8 @@ function LoginPage() {
 
   console.log(watch('email'));
 
+  console.log(errors.password?.message)
+
   return (
     <div className="flex flex-col justify-center items-center">
       <Link href="/">Fake Store</Link>
@@ -52,6 +53,7 @@ function LoginPage() {
               onChange={onChange}
               errorMessage={errors.email?.message}
               isRequired
+              type='email'
             />)}
           rules={{ required: "Email is required." }}
         />
@@ -60,7 +62,7 @@ function LoginPage() {
           <Controller
             control={control}
             name="username"
-            render={({ field: { name, value, onChange, onBlur, ref }, fieldState: { invalid, error } }) => (
+            render={({ field: { value, onChange, onBlur } }) => (
               <Input
                 label="Username"
                 placeholder="Enter your username"
@@ -70,16 +72,17 @@ function LoginPage() {
                 onChange={onChange}
                 errorMessage={errors.username?.message}
                 isRequired
+                type='text'
               />
             )}
-            rules={{ required: "Username is required.", minLength: 3 }}
+            rules={{ required: "Username is required." }}
           />
         )}
 
         <Controller
           control={control}
           name="password"
-          render={({ field: { name, value, onChange, onBlur, ref }, fieldState: { invalid, error } }) => (
+          render={({ field: { value, onChange, onBlur } }) => (
             <Input
               label="Password"
               placeholder="Enter your password"
@@ -90,13 +93,18 @@ function LoginPage() {
               description="Input your password"
               errorMessage={errors.password?.message}
               isRequired
+              type='password'
             />
           )}
           rules={{
             required: "Password is required.",
-            minLength: 5
+            minLength: {
+              value: 5,
+              message: "Password must be at least 5 characters long."
+            }
           }}
         />
+        <p className='text-red-500'>{errors && errors.email?.message || errors.password?.message}</p>
         <div className="flex gap-2">
           <Button color="primary" type="submit">
             {isLogin ? 'Login' : 'Register'}
