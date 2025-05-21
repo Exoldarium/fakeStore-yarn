@@ -55,7 +55,13 @@ function LoginPage() {
               isRequired
               type='email'
             />)}
-          rules={{ required: "Email is required." }}
+          rules={{
+            required: "Email is required.",
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: "Enter a valid email address."
+            }
+          }}
         />
 
         {!isLogin && (
@@ -101,6 +107,10 @@ function LoginPage() {
             minLength: {
               value: 5,
               message: "Password must be at least 5 characters long."
+            },
+            pattern: {
+              value: /^(?=.*[A-Z]).*$/,
+              message: "Password must contain at least one capital letter."
             }
           }}
         />
