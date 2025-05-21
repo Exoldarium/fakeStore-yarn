@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: {
     default: 'Login',
-    template: `yarnstore`,
+    template: 'yarnstore',
   },
   description: 'Log in to access your account.',
   icons: {

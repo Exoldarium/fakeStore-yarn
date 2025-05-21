@@ -5,7 +5,6 @@ import unusedImports from "eslint-plugin-unused-imports";
 import _import from "eslint-plugin-import";
 import typescriptEslint from "@typescript-eslint/eslint-plugin";
 import jsxA11Y from "eslint-plugin-jsx-a11y";
-import prettier from "eslint-plugin-prettier";
 import globals from "globals";
 import tsParser from "@typescript-eslint/parser";
 import path from "node:path";
@@ -42,10 +41,10 @@ export default defineConfig([globalIgnores([
     "!**/plopfile.js",
     "!**/react-shim.js",
     "!**/tsup.config.ts",
+    ".yarn/**"
 ]), {
     extends: fixupConfigRules(compat.extends(
         "plugin:react/recommended",
-        "plugin:prettier/recommended",
         "plugin:react-hooks/recommended",
         "plugin:jsx-a11y/recommended",
         "plugin:@next/next/recommended",
@@ -57,7 +56,6 @@ export default defineConfig([globalIgnores([
         import: fixupPluginRules(_import),
         "@typescript-eslint": typescriptEslint,
         "jsx-a11y": fixupPluginRules(jsxA11Y),
-        prettier: fixupPluginRules(prettier),
     },
 
     languageOptions: {
@@ -74,6 +72,8 @@ export default defineConfig([globalIgnores([
             ecmaFeatures: {
                 jsx: true,
             },
+            project: ['./tsconfig.json'],
+            tsconfigRootDir: __dirname,
         },
     },
 
@@ -96,6 +96,7 @@ export default defineConfig([globalIgnores([
         '@typescript-eslint/restrict-plus-operands': 'off',
         '@typescript-eslint/no-unsafe-member-access': 'off',
         "@typescript-eslint/no-var-requires": "off",
+        'react/react-in-jsx-scope': 'off',
         '@typescript-eslint/no-misused-promises': [
             2,
             {

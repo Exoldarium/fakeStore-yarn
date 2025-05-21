@@ -46,7 +46,7 @@ function getQueryClient() {
   }
 }
 
-export function Providers({ children, themeProps }: ProvidersProps) {
+export function Providers({ children }: ProvidersProps) {
   const router = useRouter();
   const queryClient = getQueryClient();
 

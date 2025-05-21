@@ -1,9 +1,7 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
-
 import { Products } from '@/components/Products';
 import { notFound } from 'next/navigation';
 import { toNormalizedProductEntry } from '@/utils/normalizeApiEntry';
-import { Button } from '@heroui/button';
 
 // TODO:
 // Zustand to manage cart state.
@@ -36,12 +34,12 @@ export async function getAllProducts() {
 }
 
 export default async function Home() {
-  const queryClient = new QueryClient()
+  const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
     queryKey: ['products'],
     queryFn: getAllProducts,
-  })
+  });
 
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-4 md:py-6">

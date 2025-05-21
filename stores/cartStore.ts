@@ -1,4 +1,4 @@
-import { create, createStore, StoreApi } from 'zustand';
+import { create } from 'zustand';
 
 import { Cart } from '@/types/cart';
 

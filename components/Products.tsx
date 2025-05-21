@@ -1,16 +1,12 @@
 'use client';
 
-// import { Button, Card, CardBody, CardFooter, Image, Link } from '@heroui/react';
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-
 import { ProductsLoading } from './ProductsLoading';
-
 import { useCartStore } from '@/stores/cartStore';
 import { getAllProducts } from '@/app/(main)/page';
 import { Button, Card, CardBody, CardFooter, Link } from '@heroui/react';
-import Image from 'next/image'
-
+import Image from 'next/image';
 
 function Products() {
   const router = useRouter();

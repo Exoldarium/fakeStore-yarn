@@ -21,17 +21,17 @@ function LoginPage() {
     defaultValues: {
       username: '',
       email: '',
-      password: ''
+      password: '',
     },
   });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
-  const endpoint = isLogin ? '/auth/login' : '/users';
+  // const endpoint = isLogin ? '/auth/login' : '/users';
 
   console.log(watch('email'));
 
-  console.log(errors.password?.message)
+  console.log(errors.password?.message);
 
   return (
     <div className="flex flex-col justify-center items-center">
@@ -53,14 +53,15 @@ function LoginPage() {
               onChange={onChange}
               errorMessage={errors.email?.message}
               isRequired
-              type='email'
-            />)}
+              type="email"
+            />
+          )}
           rules={{
-            required: "Email is required.",
+            required: 'Email is required.',
             pattern: {
               value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: "Enter a valid email address."
-            }
+              message: 'Enter a valid email address.',
+            },
           }}
         />
 
@@ -78,10 +79,10 @@ function LoginPage() {
                 onChange={onChange}
                 errorMessage={errors.username?.message}
                 isRequired
-                type='text'
+                type="text"
               />
             )}
-            rules={{ required: "Username is required." }}
+            rules={{ required: 'Username is required.' }}
           />
         )}
 
@@ -99,22 +100,24 @@ function LoginPage() {
               description="Input your password"
               errorMessage={errors.password?.message}
               isRequired
-              type='password'
+              type="password"
             />
           )}
           rules={{
-            required: "Password is required.",
+            required: 'Password is required.',
             minLength: {
               value: 5,
-              message: "Password must be at least 5 characters long."
+              message: 'Password must be at least 5 characters long.',
             },
             pattern: {
               value: /^(?=.*[A-Z]).*$/,
-              message: "Password must contain at least one capital letter."
-            }
+              message: 'Password must contain at least one capital letter.',
+            },
           }}
         />
-        <p className='text-red-500'>{errors && errors.email?.message || errors.password?.message}</p>
+        <p className="text-red-500">
+          {(errors && errors.email?.message) || errors.password?.message}
+        </p>
         <div className="flex gap-2">
           <Button color="primary" type="submit">
             {isLogin ? 'Login' : 'Register'}
@@ -122,7 +125,7 @@ function LoginPage() {
         </div>
 
         <p className="text-center text-sm">
-          {isLogin ? "Don't have an account?" : 'Already have an account?'}{' '}
+          {isLogin ? 'Don\'t have an account?' : 'Already have an account?'}{' '}
           <button
             className="underline text-blue-600"
             onClick={() => setIsLogin(!isLogin)}

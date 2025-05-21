@@ -8,8 +8,6 @@ import {
   CardHeader,
 } from '@heroui/react';
 import { useQuery } from '@tanstack/react-query';
-
-import { Product } from '@/types/product';
 import { useCartStore } from '@/stores/cartStore';
 import Image from 'next/image';
 import { SingleProductLoading } from './SingleProductLoading';
@@ -36,7 +34,7 @@ function SingleProduct({ id }: { id: string }) {
             width={500}
             height={500}
             src={data.image}
-          // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
 
