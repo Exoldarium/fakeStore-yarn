@@ -2,6 +2,7 @@ import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query
 import { Products } from '@/components/Products';
 import { notFound } from 'next/navigation';
 import { toNormalizedProductEntry } from '@/utils/normalizeApiEntry';
+import { parseError } from '@/utils/normalizeData';
 
 // TODO:
 // Zustand to manage cart state.
@@ -15,21 +16,32 @@ import { toNormalizedProductEntry } from '@/utils/normalizeApiEntry';
 export const revalidate = 3600;
 
 export async function getAllProducts() {
-  const res = await fetch('https://fakestoreapi.com/products');
+  try {
+    const res = await fetch('https://fakestoreapi.com/products');
 
-  if (!res.ok)
-    throw new Error('Something went wrong while fetching all products');
+    if (res.status === 404) {
+      return notFound();
+    }
 
-  const rawData = await res.json();
+    if (!res.ok) {
+      throw new Error('There was an error while fetching products!');
+    }
 
-  if (Array.isArray(rawData) && rawData.length !== 0) {
-    const normalizedProducts = rawData.map((data) =>
-      toNormalizedProductEntry(data),
-    );
+    const rawData = await res.json();
 
-    return normalizedProducts;
-  } else {
-    notFound();
+    if (Array.isArray(rawData) && rawData.length !== 0) {
+      const normalizedProducts = rawData.map((data) =>
+        toNormalizedProductEntry(data),
+      );
+
+      return normalizedProducts;
+    } else {
+      notFound();
+    }
+  } catch (err) {
+    const error = parseError(err);
+
+    throw new Error(error);
   }
 }
 
