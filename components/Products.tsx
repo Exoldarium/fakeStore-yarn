@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { useCartStore } from '@/stores/cartStore';
 import { getAllProducts } from '@/app/(main)/page';
