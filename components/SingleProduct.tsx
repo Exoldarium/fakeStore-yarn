@@ -10,19 +10,20 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { useCartStore } from '@/stores/cartStore';
 import Image from 'next/image';
-import { SingleProductLoading } from './SingleProductLoading';
 import { getSingleProduct } from '@/app/(main)/products/[id]/page';
+import { notFound } from 'next/navigation';
 
 function SingleProduct({ id }: { id: string }) {
   const addItem = useCartStore((state) => state.addItem);
 
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ['product', id],
     queryFn: () => getSingleProduct(id),
   });
 
-  if (isLoading) return <SingleProductLoading />;
-  if (!data) return <p className="text-center text-red-500">Product not found.</p>;
+  console.log(data, 'this is data');
+
+  if (!data) return notFound();
 
   return (
     <Card className="w-full max-w-5xl mx-auto p-6">

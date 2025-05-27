@@ -2,14 +2,21 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: {
-    default: 'Login',
-    template: 'yarnstore',
+    default: 'Login | Yarnstore',
+    template: '%s | Yarnstore',
   },
-  description: 'Log in to access your account.',
+  description: 'Log in to access your yarnstore account and manage your purchases, profile, and preferences.',
   icons: {
     icon: '/favicon.ico',
   },
+  openGraph: {
+    title: 'Login | Yarnstore',
+    description: 'Securely log in to your yarnstore account.',
+    url: 'https://fakestoreapi.com/login',
+    type: 'website',
+  },
 };
+
 
 export default function AuthLayout({
   children,

@@ -3,13 +3,30 @@ import { NavBar } from '@/components/Navbar';
 
 export const metadata: Metadata = {
   title: {
-    default: 'yarnstore',
-    template: 'yarnstore',
+    default: 'All Products | Yarnstore',
+    template: '%s | Yarnstore',
   },
-  description: 'a fake store',
+  description:
+    'Explore our full catalog of quality products at Yarnstore.',
   icons: {
     icon: '/favicon.ico',
   },
+  openGraph: {
+    title: 'All Products | Yarnstore',
+    description:
+      'Browse all available products in one place.',
+    url: 'https://fakestoreapi.com/products',
+    siteName: 'Yarnstore',
+    images: [
+      {
+        url: '/og-products.png',
+        width: 1200,
+        height: 630,
+        alt: 'Yarnstore Product Grid',
+      },
+    ],
+    type: 'website',
+  }
 };
 
 export default async function MainLayout({

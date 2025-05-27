@@ -1,5 +1,3 @@
-'use client';
-
 import { Card, CardBody, CardFooter, Skeleton } from '@heroui/react';
 
 function ProductsLoading() {
@@ -23,4 +21,4 @@ function ProductsLoading() {
   );
 }
 
-export { ProductsLoading };
+export default ProductsLoading;

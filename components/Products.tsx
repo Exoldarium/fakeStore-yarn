@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { ProductsLoading } from './ProductsLoading';
 import { useCartStore } from '@/stores/cartStore';
 import { getAllProducts } from '@/app/(main)/page';
 import { Button, Card, CardBody, CardFooter, Link } from '@heroui/react';
@@ -12,15 +11,12 @@ function Products() {
   const router = useRouter();
   const addItem = useCartStore((state) => state.addItem);
 
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ['products'],
     queryFn: getAllProducts,
   });
 
-  console.log(isLoading);
-
-  if (isLoading) return <ProductsLoading />;
-  if (!data) return <p className="text-center text-red-500">Products not found.</p>;
+  if (!data) return notFound();
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
